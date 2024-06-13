@@ -35,15 +35,13 @@ public class UserController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes
     ) {
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || !userService.register(data)) {
             redirectAttributes.addFlashAttribute("registerData", data);
             redirectAttributes.addFlashAttribute(
                 "org.springframework.validation.BindingResult.registerData", bindingResult);
 
             return "redirect:/register";
         }
-
-
 
         return "redirect:/login";
     }

@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,7 +30,9 @@ public class User {
     @OneToMany(mappedBy = "addedBy")
     private Set<Word> addedWords;
 
-    public User() {}
+    public User() {
+        addedWords = new HashSet<>();
+    }
 
     public long getId() {
         return id;
