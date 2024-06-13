@@ -12,22 +12,33 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-lg bg-nav rounded " >
-        <a class="nav-link my-text-color active h5 " href="/">Dictionary App</a>
-        <a class="nav-link my-text-color active h5  " href="/">Add Word</a>
+        <a class="nav-link my-text-color active h5 " th:href="@{/}">Dictionary App</a>
+        <a
+            class="nav-link my-text-color active h5  "
+            th:href="@{/word}"
+            th:if="${@userSession.isUserLoggedIn()}"
+        >
+            Add Word
+        </a>
 
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
             <ul class="navbar-nav row">
-                <li class="nav-item col-md-4">
-                    <a class="nav-link active h5 my-text-color" href="/">Login</a>
+                <li class="nav-item col-md-4" th:unless="${@userSession.isUserLoggedIn()}">
+                    <a class="nav-link active h5 my-text-color" th:href="@{/login}">Login</a>
                 </li>
 
-                <li class="nav-item col-md-4">
-                    <a class="nav-link my-text-color active h5 " href="/">Register</a>
+                <li class="nav-item col-md-4" th:unless="${@userSession.isUserLoggedIn()}">
+                    <a class="nav-link my-text-color active h5 " th:href="@{/register}">Register</a>
                 </li>
 
-                    <a class="nav-link h5 my-text-color">Welcome, {username}</a>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link my-text-color active h5 " href="/">Logout</a>
+                <a th:if="${@userSession.isUserLoggedIn()}"
+                   class="nav-link h5 my-text-color">Welcome, <span th:text="${@userSession.username()}"></span></a>
+                <li th:if="${@userSession.isUserLoggedIn()}"
+                    class="nav-item col-md-4"
+                >
+                    <form th:action="@{/logout}" th:method="POST">
+                        <button class="nav-link my-text-color active h5 " type="submit">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>

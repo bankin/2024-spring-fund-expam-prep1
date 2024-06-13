@@ -73,4 +73,8 @@ public class UserService {
 
         return true;
     }
+
+    public void logout() {
+        userSession.logout();
+    }
 }
