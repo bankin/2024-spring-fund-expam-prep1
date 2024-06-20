@@ -20,19 +20,36 @@
                         <br>
                         <span>Added by: {username} on {inputDate}</span>
                         <a class="ml-3 text-danger" href="/">Remove</a>
+<!--                        Remove should be the same as logout. DELETE /words/6 -->
                     </div>
             </div>
 
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
-                <h3 class="mySticky bg-gray text-dark rounded">Spanish: {spanishWordsCount}</h3>
-                    <div class="mt-3 rounded badge-secondary">
+                <h3 class="mySticky bg-gray text-dark rounded">Spanish: {<span th:text="${spanishWords.size()}"></span>}</h3>
+                    <div
+                        th:each="word : ${spanishWords}"
+                        class="mt-3 rounded badge-secondary"
+                    >
                         <img class="mr-2" src="/img/spanish.png" alt="Flag" width="20px" height="20px">
-                        <span>{spanishTerm}: {translation}</span>
+                        <span>
+                            <span th:text="${word.term}"></span>:
+                            <span th:text="${word.translation}"></span>
+                        </span>
                         <br>
-                        <span>Example: {example}</span>
+                        <span th:text="|Example: ${word.example}|">Example</span>
                         <br>
-                        <span>Added by: {username} on {inputDate}</span>
-                        <a class="ml-3 text-danger" href="/">Remove</a>
+                        <span>
+                            Added by:
+                            <span th:text="${word.addedBy.username}"></span>
+                            on
+                            <span th:text="${word.date}"></span>
+                        </span>
+                        <form
+                            th:action="@{/words/{id}(id = ${word.id})}"
+                            th:method="DELETE"
+                        >
+                            <button type="submit" class="ml-3 text-danger">Remove</button>
+                        </form>
                     </div>
             </div>
         </div>

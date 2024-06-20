@@ -9,7 +9,7 @@ public class UserLoginDTO {
     private String username;
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20")
     private String password;
 
     public UserLoginDTO() {
